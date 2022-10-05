@@ -1,0 +1,28 @@
+Quit[]
+$FeynRulesPath = 
+ SetDirectory[
+  "F:\\HEP\\Subhaditya Bhattacharya work\\Tools\\feynrules-current"]
+<< FeynRules`
+SetDirectory[$FeynRulesPath <> "/Models/DM/Singlet Scalar"];
+
+LoadModel["SingletScalar.fr"]
+
+FeynmanGauge = True;
+
+CheckHermiticity[LSM]
+
+CheckMassSpectrum[LSM]
+
+CheckKineticTermNormalisation[LSM, FlavorExpand -> SU2W]
+
+vertices = FeynRules[LSM, ScreenOutput -> False]
+
+FullSimplify[vertDM]
+
+UpdateParameters[lmbphih -> 0.1]
+
+verts1 = FeynRules[LSM]
+
+ComputeWidths[vertices]
+
+WriteUFO[LSM]
